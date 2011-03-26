@@ -1,0 +1,5 @@
+exportClasses(Reference)
+exportMethods(show,summary,abstract,as.data.frame)
+
+#IMPORT FUNCTIONS
+export(pubmed.search,read.ris)
