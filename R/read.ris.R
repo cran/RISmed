@@ -83,6 +83,7 @@ if(all(is.na(dp))) dp = sapply.field.value.gettor("Y1",temp.list,end=tag.ending)
 sp = sapply.field.value.gettor("SP",temp.list,end=tag.ending)
 ep = sapply.field.value.gettor("EP",temp.list,end=tag.ending)
 ab = sapply.field.value.gettor("AB",temp.list,end=tag.ending)
+kw = sapply.field.value.gettor("KW",temp.list,end=tag.ending,as.list=TRUE)
 
 ### SETTING REPRESENTATION TYPE
 
@@ -175,7 +176,8 @@ else{
                         day,
                         sp,
                         ep,
-                        ab
+                        ab,
+                        kw
                       )
 
 }

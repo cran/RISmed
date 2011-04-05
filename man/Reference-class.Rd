@@ -26,6 +26,7 @@ Objects can be created by calls of the form \code{new("Reference", ...)}. Each s
     \item{\code{sp}:}{Object of class \code{"character"}. Starting page. }
     \item{\code{ep}:}{Object of class \code{"character"}. Ending page.}
     \item{\code{ab}:}{Object of class \code{"character"}. Abstract.}
+     \item{\code{kw}:}{Object of class \code{"list"}. Keywords.}
   }
 }
 
@@ -48,6 +49,11 @@ Create a data.frame from a \code{Reference} object.
 \item{abstract}{\code{signature(object = "Reference")}:
 Obtain vector of abstracts from \code{Reference} object.
   }
+
+\item{keyword}{\code{signature(object = "Reference")}:
+Obtain list fo keywords from \code{Reference} object.
+  }
+
  }
 }
 

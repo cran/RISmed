@@ -13,7 +13,8 @@ setClass(
                         day = "numeric",
                         sp = "character",
                         ep = "character",
-                        ab = "character"
+                        ab = "character",
+                        kw = "list"
                         )
          )
 
@@ -30,7 +31,8 @@ Reference <- function(
                         day,
                         sp,
                         ep,
-                        ab
+                        ab,
+                        kw
                       ){
 
   new("Reference",
@@ -46,7 +48,8 @@ Reference <- function(
                         day = day,
                         sp = sp,
                         ep = ep,
-                        ab = ab
+                        ab = ab,
+                        kw = kw
       )
 
   
@@ -114,6 +117,17 @@ setMethod("abstract",signature(object="Reference"),
             abstracts
              }
           )
+
+keyword <- function(object) UseMethod("keyword")
+           
+setMethod("keyword",signature(object="Reference"),
+          function(object){
+            keywords <- object@kw
+            names(keywords) <- object@id
+            keywords
+             }
+          )
+
 
 setMethod("show","Reference",function(object){
             

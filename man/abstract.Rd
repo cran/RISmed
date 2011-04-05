@@ -15,7 +15,7 @@ Extract vector of abstracts of records in \code{Reference} object.
 \describe{
 
 \item{\code{signature(object = "Reference")}}{
-Vector of strings with name of elements corresponding to \code{id} of \code{Reference} object.
+Vector of strings with name of elements corresponding to \code{id} of \code{Reference} object. If abstract is not available from record, then is \code{NA}.
  }
  }
 }
