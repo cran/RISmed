@@ -25,8 +25,12 @@ summary(R2009)
 #ABSTRACTS FOR FIRST 3 RECORDS
 abstract(R2009)[1:3]
 
+#KEYWORDS FOR FIRST 3 RECORDS
+keyword(R2009)[1:3]
+
 #TABULATE JOURNALS
 table(as.data.frame(R2009)$journal)
+
 
 }
 
