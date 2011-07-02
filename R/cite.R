@@ -6,6 +6,7 @@ setMethod("cite",signature(object="Reference"),
 
              mapply(paste.citation,
                au=object@au,
+               year=object@year,
                title=object@ti,
                volume=object@vl,
                journal=object@jo,
