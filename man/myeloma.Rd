@@ -4,7 +4,7 @@
 \title{Example of results from \code{EUtilsGet}}
 
 \description{
-First ten records of query of NCBI PubMed for "myeloma[ti]" in the past year (at the time of this writing).
+First ten records of query of NCBI PubMed for "myeloma[ti]" in the past year (at the time of this writing) as a Medline object.
 }
 
 \usage{myeloma}
@@ -13,6 +13,6 @@ First ten records of query of NCBI PubMed for "myeloma[ti]" in the past year (at
 
 \source{PubMed database of the US National Library of Medicine}
 
-\seealso{\code{\link{EUtilsGet}}}
+\seealso{\code{\link{EUtilsGet}},\code{\link{Medline}}}
 
 \author{Stephanie Kovalchik \email{s.a.kovalchik@gmail.com}}

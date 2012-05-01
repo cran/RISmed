@@ -1,10 +1,10 @@
-\name{count}
+\name{QueryCount}
 \title{Count of record results for EUtilsQuery}
-\usage{count(object)}
+\usage{QueryCount(object)}
 \description{Returns the number of Ids from a E-utility query}
 \value{numeric count}
 \seealso{\code{\link{EUtilsSummary}}}
-\alias{count,EUtilsSummary-method}
-\alias{count}
+\alias{QueryCount,EUtilsSummary-method}
+\alias{QueryCount}
 \author{Stephanie Kovalchik}
 \arguments{\item{object}{object of the \code{EUtilsSummary} class.}}

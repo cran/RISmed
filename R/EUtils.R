@@ -13,8 +13,7 @@ EUtilsQuery <- function(query,type="esearch",db="pubmed",...){
 
 	# CREATE URL WITH REQUEST
 	PubMedURL <- EUtilsURL(type,db)
-	Query <- gsub("\\] ","\\]+",query) # BEFORE OPs
-	Query <- gsub("([A-Z]+) ","\\1+",Query) # AFTER OPs
+	Query <- gsub(" ","+",query)
 
 	# PARTIAL MATCH OF POSSIBLE LIMITS
 	OPTIONS <- c(
@@ -41,6 +40,9 @@ EUtilsQuery <- function(query,type="esearch",db="pubmed",...){
 		if(all(names(ArgList)!="retmax"))
 			ArgList$retmax <- 1000 # DEFAULT 1000 RECORDS RETURNED
 	}
+	
+	ArgList$tool <- "RISmed"
+	ArgList$email <- "s.a.kovalchik@gmail.com"
 	
 	# REPLACE RETMAX IF NOT USED
 	ArgStr <- paste(names(ArgList),unlist(ArgList),sep="=")
@@ -95,12 +97,24 @@ SplitIDs <- function(ids){
 }
 
 
-EUtilsGet <- function(ids, type="efetch", db="pubmed"){
+EUtilsGet <- function(x, type="efetch", db="pubmed"){
 
-	IDList <- SplitIDs(ids)
+	if(class(x)[1]=="EUtilsSummary"){
+		query <- x@querytranslation
+		x <- x@id
+	}
+	else{
+		query <- ""
+	}
+	
+	IDList <- SplitIDs(x)
 	Result <- lapply(IDList, EUtilsSubGet, type = type, db = db)
 	Result <- unlist(Result, recursive=FALSE)
-		
+
+	if(type=="efetch"&db=="pubmed"){
+		Result <- Medline(Result, query)
+	}
+			
 Result
 }
 
@@ -110,7 +124,7 @@ EUtilsSubGet <- function(ids, type="efetch", db="pubmed"){
 	FetchURL <- EUtilsURL(type,db=db)
 	IDStr <- collapse("id=",paste(ids,collapse=","))
 	EUtilsFetch <- collapse(FetchURL,IDStr)	
-	res <- readLines(collapse(EUtilsFetch,"&retmode=xml"),warn=FALSE)
+	res <- readLines(collapse(EUtilsFetch,"&retmode=xml"),warn=FALSE,encoding="UTF-8")
 	
 	if(db=="pubmed"){
 	
@@ -148,7 +162,6 @@ GetValues <- function(.obj){
 
 ArticleStart <- function(.obj) which(.obj=="<PubmedArticle>")
 ArticleEnd <- function(.obj) which(.obj=="</PubmedArticle>")
-
 GroupArticle <- function(start, end, .obj) .obj[start:end] 
 
 

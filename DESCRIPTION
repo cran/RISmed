@@ -1,5 +1,5 @@
 Package: RISmed
-Version: 2.0
+Version: 2.0.1
 Type: Package
 Title: Download content from NCBI databases
 Date: 5/1/2012
@@ -11,6 +11,6 @@ Description: Download content from NCBI databases. This package is
         package is not intended for reference management.
 License: GPL (>= 2)
 LazyLoad: yes
-Packaged: 2012-05-05 21:56:54 UTC; skoval
+Packaged: 2012-05-07 05:57:10 UTC; skoval
 Repository: CRAN
-Date/Publication: 2012-05-06 06:57:53
+Date/Publication: 2012-05-08 04:14:56

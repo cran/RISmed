@@ -69,9 +69,9 @@ res <- EUtilsSummary("myeloma[ti] jones[au]")
 res
 
 summary(res)
-count(res)
-id(res)
-translation(res)
+QueryCount(res)
+QueryId(res)
+QueryTranslation(res)
 
 # PROTEIN QUERY
 res <- EUtilsSummary("C-reactive[ti]",db="protein")

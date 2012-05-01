@@ -1,10 +1,10 @@
-\name{translation}
+\name{QueryTranslation}
 \title{Get the NCBI query translation from EUtilsQuery}
-\usage{translation(object)}
+\usage{QueryTranslation(object)}
 \description{Returns the string translation of a E-utility query}
 \value{character query translation}
 \seealso{\code{\link{EUtilsSummary}}}
-\alias{translation,EUtilsSummary-method}
-\alias{translation}
+\alias{QueryTranslation,EUtilsSummary-method}
+\alias{QueryTranslation}
 \author{Stephanie Kovalchik}
 \arguments{\item{object}{object of the \code{EUtilsSummary} class.}}

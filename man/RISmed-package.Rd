@@ -19,11 +19,15 @@ Download content from NCBI databases.
 \tabular{ll}{
 Package: \tab RISmed\cr
 Type: \tab Package\cr
-Version: \tab 2.0\cr
+Version: \tab 2.0.1\cr
 Date: \tab 2011-03-23\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
+
+Note on usage:
+
+In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays. Failure to comply with this policy may result in an IP address being blocked from accessing NCBI. 
 
 }
 \author{

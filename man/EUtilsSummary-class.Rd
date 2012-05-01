@@ -22,12 +22,12 @@ Objects can be created by calls of the form \code{new("EUtilsSummary", ...)}.
 }
 \section{Methods}{
   \describe{
-    \item{count}{\code{signature(object = "EUtilsSummary")}: ... }
-    \item{id}{\code{signature(object = "EUtilsSummary")}: ... }
+    \item{QueryCount}{\code{signature(object = "EUtilsSummary")}: ... }
+    \item{QueryId}{\code{signature(object = "EUtilsSummary")}: ... }
     \item{print}{\code{signature(x = "EUtilsSummary")}: ... }
     \item{show}{\code{signature(object = "EUtilsSummary")}: ... }
     \item{summary}{\code{signature(object = "EUtilsSummary")}: ... }
-    \item{translation}{\code{signature(object = "EUtilsSummary")}: ... }
+    \item{QueryTranslation}{\code{signature(object = "EUtilsSummary")}: ... }
 	 }
 }
 

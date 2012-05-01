@@ -15,6 +15,7 @@ EUtilsSummary <- function(query,type="esearch",db="pubmed",url=NULL,encoding="un
 	}
 
 	res <- ParseTags(readLines(url,warn=FALSE,encoding=encoding))
+	if(res$Count==0) res$Id <- character(0)
 	
 	new("EUtilsSummary",
 		count = res$Count,
@@ -38,6 +39,6 @@ setMethod("summary","EUtilsSummary",function(object,...){
 })
 
 # GENERICS
-setMethod("count","EUtilsSummary",function(object) object@count)
-setMethod("id","EUtilsSummary",function(object) object@id)
-setMethod("translation","EUtilsSummary",function(object) object@querytranslation)
+setMethod("QueryCount","EUtilsSummary",function(object) object@count)
+setMethod("QueryId","EUtilsSummary",function(object) object@id)
+setMethod("QueryTranslation","EUtilsSummary",function(object) object@querytranslation)

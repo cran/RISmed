@@ -8,12 +8,12 @@ Download results of a query for any database of the National Center for Biotechn
 }
 
 \usage{
-EUtilsGet(ids,type="efetch",db="pubmed")
+EUtilsGet(x,type="efetch",db="pubmed")
 }
 
 \arguments{
 
-\item{ids}{vector of NCBI records ids, i.e. returned ids from \code{EUtilsSummary}}
+\item{x}{Either vector of NCBI records ids, i.e. returned ids from \code{EUtilsSummary}, or the \code{EUtilsSummary} object itself}
 \item{type}{string indicating type of NCBI Eutility, \code{efetch}, \code{esummary}, etc.}
 \item{db}{string indicating the NCBI database used in query}
 }
@@ -27,6 +27,10 @@ Possible E-utilities to supply to \code{type} are \code{efetch}, \code{esummary}
 The database name supplied to \code{db} can be any valid Entrez database, such as \code{pubmed}, \code{protein}, \code{nlm}, etc.
 
 For further details on available E-utilities and databases visit \url{http://www.ncbi.nlm.nih.gov/books/NBK25499/}.
+
+Note on usage:
+
+In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays. Failure to comply with this policy may result in an IP address being blocked from accessing NCBI. 
 
 }
 
@@ -52,13 +56,18 @@ EUtils ESearch
 \examples{
 
 # PUBMED QUERY FOR MYELOMA ARTICLES FOR LAST YEAR
-res <- EUtilsSummary("myeloma[ti]",reldate=365)
+res <- EUtilsSummary("myeloma[ti]",retmax=10,reldate=365)
 
 summary(res)
 
-fetch <- EUtilsGet(id(res))
+fetch <- EUtilsGet(res)
 
-fetch[[1]]
+# PUBMED RETURNS A MEDLINE OBJECT
+fetch
+
+PMID(fetch)
+
+Author(fetch)[[1]]
 
 }
 

@@ -1,10 +1,10 @@
-\name{id}
+\name{QueryId}
 \title{Get ids from EUtilsQuery}
-\usage{id(object)}
+\usage{QueryId(object)}
 \description{Returns the vector Ids from a E-utility query}
 \value{character vector of ids}
 \seealso{\code{\link{EUtilsSummary}}}
-\alias{id,EUtilsSummary-method}
-\alias{id}
+\alias{QueryId,EUtilsSummary-method}
+\alias{QueryId}
 \author{Stephanie Kovalchik}
 \arguments{\item{object}{object of the \code{EUtilsSummary} class.}}
