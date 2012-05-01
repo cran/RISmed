@@ -1,21 +1,21 @@
 \name{summary-methods}
 \docType{methods}
 \alias{summary-methods}
-\alias{summary,Reference-method}
+\alias{summary,EUtilsSummary-method}
 
-\title{ Methods for Function summary in Package `RISmed' }
+\title{ Summary method for EUtilsSummary object}
 
 \description{
 
-Summary of object of class \code{Reference}
+Summary of object of class \code{EUtilsSummary}
 
 }
 
 \section{Methods}{
 \describe{
 
-\item{\code{signature(object = "Reference",...)}}{
-Returns the number of records for \code{Reference} object and frequency counts of records by year.
+\item{\code{signature(object = "EUtilsSummary",...)}}{
+Returns the number of records and id vector.
   }
  }
 }

@@ -1,13 +1,13 @@
-\name{show-methods}
+\name{print-methods}
 \docType{methods}
-\alias{show-methods}
-\alias{show,EUtilsSummary-method}
+\alias{print-methods}
+\alias{print,EUtilsSummary-method}
 
-\title{ Show method for EUtilsSummary object }
+\title{ Print method for EUtilsSummary object }
 
 \description{
 
-Show object of class \code{EUtilsSummary}
+Print object of class \code{EUtilsSummary}
 
 }
 

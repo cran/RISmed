@@ -1,5 +1,3 @@
-exportClasses(Reference)
-exportMethods(show,summary,abstract,as.data.frame,cite,keyword)
-
-#IMPORT FUNCTIONS
-export(pubmed.search,read.ris)
+exportClasses(EUtilsSummary)
+export(EUtilsSummary,EUtilsQuery,EUtilsGet,count,id,translation)
+exportMethods(print,show,count,summary)

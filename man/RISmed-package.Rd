@@ -6,14 +6,13 @@
 
 \title{
 
-Search PubMed; Make bibliographic content into analyzable objects
+Download content from NCBI databases.
+
 
 }
 
 \description{
-
-Perform PubMed search, create \code{Reference} object from search results or RIS file.
-
+ Download content from NCBI databases. This package is intended to facilitate analyses of NCBI database content. This package is not intended for reference management.
 }
 
 \details{
@@ -29,6 +28,6 @@ LazyLoad: \tab yes\cr
 }
 \author{
 
-Maintainer: S. Kovalchik <s.a.kovalchik@gmail.com>
+Maintainer: Stephanie Kovalchik <s.a.kovalchik@gmail.com>
 
 }

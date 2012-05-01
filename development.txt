@@ -1,5 +1,0 @@
-show.citation
-  Show a formatted list of reference object, take subset argument, different style options
-
-Add keywords to Class, function to extract keywords, like abstract
-
