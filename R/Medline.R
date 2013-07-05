@@ -50,17 +50,35 @@ GetAuthors <- function(object){
 df
 }
 
+GetMeshMajor <- function(object){
+
+  names <- names(object)
+
+  if(any(names=="DescriptorName")){
+
+    index <- which(names=="DescriptorName")
+    index <- min(index):max(index)
+    data.frame(
+               Heading = object[index],
+               Type = ifelse(names[index]=="DescriptorName","Descriptor","Qualifier")
+               )
+  }
+  else
+    NA
+}
+
+
 setClass("Medline",
 	representation(
 			Query = "character",
 			PMID = "character",
 			Year = "numeric",
-		    Month = "numeric",
-		    Day= "numeric",
-		    Author = "list",
-		    ISSN= "character",
-		    Title = "character",
-		    ArticleTitle= "character",
+                        Month = "numeric",
+                        Day= "numeric",
+                        Author = "list",
+                        ISSN= "character",
+                        Title = "character",
+                        ArticleTitle= "character",
 			ELocationID= "character",
 			AbstractText= "character",
 			Affiliation= "character",
@@ -79,18 +97,17 @@ setClass("Medline",
 			MedlinePgn= "character",
 			CopyrightInformation= "character",
 			Country= "character",
-			DescriptorName= "character",
-			QualifierName= "character",
 			GrantID= "character",
 			Acronym= "character",
 			Agency= "character",
 			RegistryNumber= "character",
 			RefSource= "character",
-			CollectiveName="character")
+			CollectiveName="character",
+                       	Mesh="list")
 )
 
 Medline <- function(object, query = character(0)){
-	
+        
 	# ARTICLE LIST FROM PUBMED QUERY
 	PMID <- sapply(object, function(x) x["PMID"],USE.NAMES=FALSE)
 	Year <- sapply(object, function(x) x["Year"],USE.NAMES=FALSE)	
@@ -117,14 +134,14 @@ Medline <- function(object, query = character(0)){
 	MedlinePgn <- sapply(object, function(x) x["MedlinePgn"],USE.NAMES=FALSE)
 	CopyrightInformation <- sapply(object, function(x) x["CopyrightInformation"],USE.NAMES=FALSE)
 	Country <- sapply(object, function(x) x["Country"],USE.NAMES=FALSE)
-	DescriptorName <- sapply(object, function(x) x["DescriptorName"],USE.NAMES=FALSE)
-	QualifierName <- sapply(object, function(x) x["QualifierName"],USE.NAMES=FALSE)
 	GrantID <- sapply(object, function(x) x["GrantID"],USE.NAMES=FALSE)
 	Acronym <- sapply(object, function(x) x["Acronym"],USE.NAMES=FALSE)
 	Agency <- sapply(object, function(x) x["Agency"],USE.NAMES=FALSE)
 	RegistryNumber <- sapply(object, function(x) x["RegistryNumber"],USE.NAMES=FALSE)
 	RefSource <- sapply(object, function(x) x["RefSource"],USE.NAMES=FALSE)
 	CollectiveName <- sapply(object, function(x) x["CollectiveName"],USE.NAMES=FALSE)
+
+        Mesh <- lapply(object, GetMeshMajor)     
 	Author <- lapply(object,GetAuthors)
 	
 	PMID <- as.character(PMID)
@@ -152,16 +169,13 @@ Medline <- function(object, query = character(0)){
 	MedlinePgn <- as.character(MedlinePgn)
 	CopyrightInformation <- as.character(CopyrightInformation)
 	Country <- as.character(Country)
-	DescriptorName <- as.character(DescriptorName)
-	QualifierName <- as.character(QualifierName)
 	GrantID <- as.character(GrantID)
 	Acronym <- as.character(Acronym)
 	Agency <- as.character(Agency)
 	RegistryNumber <- as.character(RegistryNumber)
 	RefSource <- as.character(RefSource)
 	CollectiveName <- as.character(CollectiveName)
-	
-	
+  	
 	new("Medline",
 			Query = query,
 			PMID = PMID,
@@ -190,14 +204,13 @@ Medline <- function(object, query = character(0)){
 			MedlinePgn = MedlinePgn, 
 			CopyrightInformation = CopyrightInformation, 
 			Country = Country, 
-			DescriptorName = DescriptorName, 
-			QualifierName = QualifierName, 
 			GrantID = GrantID, 
 			Acronym = Acronym, 
 			Agency = Agency, 
 			RegistryNumber = RegistryNumber, 
 			RefSource = RefSource, 
-			CollectiveName = CollectiveName
+			CollectiveName = CollectiveName,
+                        Mesh = Mesh
 	)
 }
 
@@ -239,11 +252,11 @@ setMethod("ISOAbbreviation","Medline",function(object) object@ISOAbbreviation)
 setMethod("MedlinePgn","Medline",function(object) object@MedlinePgn)                    
 setMethod("CopyrightInformation","Medline",function(object) object@CopyrightInformation)
 setMethod("Country","Medline",function(object) object@Country)                          
-setMethod("DescriptorName","Medline",function(object) object@DescriptorName)            
-setMethod("QualifierName","Medline",function(object) object@QualifierName)              
 setMethod("GrantID","Medline",function(object) object@GrantID)                          
 setMethod("Acronym","Medline",function(object) object@Acronym)                          
 setMethod("Agency","Medline",function(object) object@Agency)                            
 setMethod("RegistryNumber","Medline",function(object) object@RegistryNumber)            
 setMethod("RefSource","Medline",function(object) object@RefSource)                      
 setMethod("CollectiveName","Medline",function(object) object@CollectiveName)            
+setMethod("Mesh","Medline",function(object) object@Mesh)
+

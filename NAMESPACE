@@ -5,6 +5,5 @@ Title, ArticleTitle, ELocationID, AbstractText, Affiliation,
 Language, PublicationType, MedlineTA, NlmUniqueID, ISSNLinking, 
 Hour, Minute, PublicationStatus, ArticleId, Volume, 
 Issue, ISOAbbreviation, MedlinePgn, CopyrightInformation, 
-Country, DescriptorName, QualifierName, GrantID, Acronym, 
-Agency, RegistryNumber, RefSource, CollectiveName)
+Country,GrantID, Acronym, Agency, RegistryNumber, RefSource, CollectiveName, Mesh)
 exportMethods(print,show,summary)

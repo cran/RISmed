@@ -125,11 +125,12 @@ EUtilsSubGet <- function(ids, type="efetch", db="pubmed"){
 	IDStr <- collapse("id=",paste(ids,collapse=","))
 	EUtilsFetch <- collapse(FetchURL,IDStr)	
 	res <- readLines(collapse(EUtilsFetch,"&retmode=xml"),warn=FALSE,encoding="UTF-8")
-	
+
 	if(db=="pubmed"){
 	
-	ArticleList <- mapply(GroupArticle, start = ArticleStart(res), end = ArticleEnd(res),
-									MoreArgs = list(.obj = res), SIMPLIFY = FALSE)
+	ArticleList <- mapply(GroupArticle, start = ArticleStart(res),
+                              end = ArticleEnd(res),
+                              MoreArgs = list(.obj = res), SIMPLIFY = FALSE)
 									
 	ParseEUtilsFetch <- lapply(ArticleList, function(x){
 		val <- GetValues(x[LinesWithValues(x)])
