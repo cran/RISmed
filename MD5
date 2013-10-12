@@ -1,8 +1,8 @@
-5eeb164f15bf3fdec85e4d8a82502775 *DESCRIPTION
+79a20494bbde99ff5ddb9dbc8ee42088 *DESCRIPTION
 997cd4d2ef01e9fe39441222c97efb13 *NAMESPACE
-c3249fb94ee16e67ea44a4145af82e6e *NEWS
+76a97edc36a736e5685990dd8134523e *NEWS
 898204b9357fe6e07629109777b1ff5b *R/AllGenerics.R
-0d426c6e95a334f1449a3585d2ce73c1 *R/EUtils.R
+66799e9edf47db987dfa30061b1315db *R/EUtils.R
 8c34e15c0edd1afcbc50fabcda2d15de *R/EUtilsSummary.R
 0a180d0e72e35a61681e095229b9b756 *R/Medline.R
 8c121f6882357adba74f84740f24a9e3 *data/myeloma.RData
@@ -69,7 +69,7 @@ d9141fc9e5487b1ce7751c9ccee82398 *man/PublicationStatus-methods.Rd
 8e6f9b24a3f6ca630b7103c6eca2389c *man/PublicationType.Rd
 d516c93a8923254a8ec490b4f4c10e79 *man/Query-methods.Rd
 a27a354da059766fe6a18d3380127abb *man/Query.Rd
-9e08a5bd1eff26541d82216920fb871c *man/RISmed-package.Rd
+ad599bafaba1129a4085f0283c508789 *man/RISmed-package.Rd
 52794755222ad5160dd673ac52046ff5 *man/RefSource-methods.Rd
 8434e0801bbc0d25ecdcc0781d3e4835 *man/RefSource.Rd
 7fcaa2072ba6afffd53c5c9a545987f0 *man/RegistryNumber-methods.Rd

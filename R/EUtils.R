@@ -131,7 +131,8 @@ EUtilsSubGet <- function(ids, type="efetch", db="pubmed"){
 	ArticleList <- mapply(GroupArticle, start = ArticleStart(res),
                               end = ArticleEnd(res),
                               MoreArgs = list(.obj = res), SIMPLIFY = FALSE)
-									
+
+										
 	ParseEUtilsFetch <- lapply(ArticleList, function(x){
 		val <- GetValues(x[LinesWithValues(x)])
 		names(val) <- GetFields(x[LinesWithValues(x)])
@@ -150,15 +151,15 @@ ParseEUtilsFetch
 
 
 LinesWithValues <- function(.obj){
-	grep(">([a-zA-Z]|[0-9]).*<",.obj)
+	grep(">(\\[?[a-zA-Z]|[0-9]).*<",.obj)
 }
 
 GetFields <- function(.obj){
-	sub("(.*<)([a-zA-Z]+)(.*>)(([a-zA-Z]|[0-9]).*<..*>.*)","\\2",.obj)
+	sub("(.*<)([a-zA-Z]+)(.*>)(\\[?([a-zA-Z]|[0-9]).*<..*>.*)","\\2",.obj)
 }
 
 GetValues <- function(.obj){
-	sub("(.*<)([a-zA-Z]+)(.*>)(([a-zA-Z]|[0-9]).*)(<..*>.*)","\\4",.obj)
+	sub("(.*<)([a-zA-Z]+)(.*>)(\\[?([a-zA-Z]|[0-9]).*)(<..*>.*)","\\4",.obj)
 }
 
 ArticleStart <- function(.obj) which(.obj=="<PubmedArticle>")
