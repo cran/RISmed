@@ -30,3 +30,9 @@ Corrected web link; Added MeSH Terms for MEDLINE object
 Version 2.1.1
 
 Revised fields to accept bracketed (foreign-language) titles.
+
+-------------------------------------------------------------------------------
+
+Version 2.1.2
+
+Fixed bug with author field for cases with missing forename/middle name; Fixed error message for queries with no result and instead return EUtilsSummary object with "0" record count.

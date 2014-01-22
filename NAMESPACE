@@ -1,3 +1,4 @@
+import(methods)
 exportClasses(EUtilsSummary,Medline)
 export(Medline,EUtilsSummary,EUtilsQuery,EUtilsGet,QueryTranslation,QueryId,QueryCount)
 exportMethods(Query, PMID, Year, Month, Day, Author, ISSN, 

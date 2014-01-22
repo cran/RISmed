@@ -2,29 +2,17 @@ GetAuthors <- function(object){
 
 	names <- names(object)
 	
-	first.index <- grep("ForeName",names)
-	initial.index <- grep("Initials",names)
+	first.check <- grep("ForeName",names)
+	initial.check <- grep("Initials",names)
 	last.index <- grep("LastName",names)
-	lengths <- c(length(first.index),length(initial.index),length(last.index))
-	maxlength <- max(lengths)
 	
-	if(any(lengths!=maxlength)){
-		max.index <- which(lengths==maxlength)[1]
-		if(max.index==1){
-			initial.index <- first.index+1
-			last.index <- first.index+2 
-		}
-		else if(max.index==2){
-			first.index <- initial.index-1
-			last.index <- initial.index+1
-		}
-		else{
-			initial.index <- last.index-1
-			first.index <- last.index-2
-		}
-	}
+	first.index <- last.index+1
+	initial.index <- last.index+2
 	
-	if(all(lengths==0)){ # NO AUTHORS LISTED
+	initial.index[!(initial.index%in%initial.check)] <- NA
+	first.index[!(first.index%in%first.check)] <- NA
+
+	if(length(last.index)==0){ # NO AUTHORS LISTED
 	
 	df <- data.frame(
 		LastName = NA,
@@ -33,7 +21,6 @@ GetAuthors <- function(object){
 	)
 
 	df$order <- NA
-
 	
 	}
 	else{
@@ -49,6 +36,59 @@ GetAuthors <- function(object){
 	}
 df
 }
+
+
+# # GetAuthors <- function(object){
+
+	# names <- names(object)
+	
+	# first.index <- grep("ForeName",names)
+	# initial.index <- grep("Initials",names)
+	# last.index <- grep("LastName",names)
+	# lengths <- c(length(first.index),length(initial.index),length(last.index))
+	# maxlength <- max(lengths)
+	
+	# if(any(lengths!=maxlength)){
+		# max.index <- which(lengths==maxlength)[1]
+		# if(max.index==1){
+			# initial.index <- first.index+1
+			# last.index <- first.index+2 
+		# }
+		# else if(max.index==2){
+			# first.index <- initial.index-1
+			# last.index <- initial.index+1
+		# }
+		# else{
+			# initial.index <- last.index-1
+			# first.index <- last.index-2
+		# }
+	# }
+	
+	# if(all(lengths==0)){ # NO AUTHORS LISTED
+	
+	# df <- data.frame(
+		# LastName = NA,
+		# ForeName = NA,
+		# Initials = NA
+	# )
+
+	# df$order <- NA
+
+	
+	# }
+	# else{
+	
+	# df <- data.frame(
+		# LastName = as.character(object[last.index]),
+		# ForeName = as.character(object[first.index]),
+		# Initials = as.character(object[initial.index]),
+		# stringsAsFactors=FALSE)
+
+	# df$order <- 1:nrow(df)
+	
+	# }
+# df
+# }
 
 GetMeshMajor <- function(object){
 
