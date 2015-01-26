@@ -123,7 +123,7 @@ setClass("Medline",
 			AbstractText= "character",
 			Affiliation= "character",
 			Language= "character",
-			PublicationType= "character",
+			PublicationType= "list",
 			MedlineTA= "character",
 			NlmUniqueID= "character",
 			ISSNLinking= "character",
@@ -147,12 +147,20 @@ setClass("Medline",
 )
 
 Medline <- function(object, query = character(0)){
-        
+    
+    TagIndex <- lapply(object, names)
+    
 	# ARTICLE LIST FROM PUBMED QUERY
 	PMID <- sapply(object, function(x) x["PMID"],USE.NAMES=FALSE)
-	Year <- sapply(object, function(x) x["Year"],USE.NAMES=FALSE)	
-	Month <- sapply(object, function(x) x["Month"],USE.NAMES=FALSE)
-	Day <- sapply(object, function(x) x["Day"],USE.NAMES=FALSE)
+	
+	FUN <- function(index, obj, field) obj[max(which(index==field))]
+
+	Year <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "Year"))
+	Month <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "Month"))
+	Day <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "Month"))
+	Minute <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "Minute"))
+	Hour <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "Hour"))
+	
 	ISSN <- sapply(object, function(x) x["ISSN"],USE.NAMES=FALSE)
 	Title <- sapply(object, function(x) x["Title"],USE.NAMES=FALSE)
 	ArticleTitle <- sapply(object, function(x) x["ArticleTitle"],USE.NAMES=FALSE)
@@ -160,12 +168,10 @@ Medline <- function(object, query = character(0)){
 	AbstractText <- sapply(object, function(x) x["AbstractText"],USE.NAMES=FALSE)
 	Affiliation <- sapply(object, function(x) x["Affiliation"],USE.NAMES=FALSE)
 	Language <- sapply(object, function(x) x["Language"],USE.NAMES=FALSE)
-	PublicationType <- sapply(object, function(x) x["PublicationType"],USE.NAMES=FALSE)
+	PublicationType <- lapply(object, function(x) x[names(x) == "PublicationType"])
 	MedlineTA <- sapply(object, function(x) x["MedlineTA"],USE.NAMES=FALSE)
 	NlmUniqueID <- sapply(object, function(x) x["NlmUniqueID"],USE.NAMES=FALSE)
 	ISSNLinking <- sapply(object, function(x) x["ISSNLinking"],USE.NAMES=FALSE)
-	Hour <- sapply(object, function(x) x["Hour"],USE.NAMES=FALSE)
-	Minute <- sapply(object, function(x) x["Minute"],USE.NAMES=FALSE)
 	PublicationStatus <- sapply(object, function(x) x["PublicationStatus"],USE.NAMES=FALSE)
 	ArticleId <- sapply(object, function(x) x["ArticleId"],USE.NAMES=FALSE)
 	Volume <- sapply(object, function(x) x["Volume"],USE.NAMES=FALSE)
@@ -181,7 +187,7 @@ Medline <- function(object, query = character(0)){
 	RefSource <- sapply(object, function(x) x["RefSource"],USE.NAMES=FALSE)
 	CollectiveName <- sapply(object, function(x) x["CollectiveName"],USE.NAMES=FALSE)
 
-        Mesh <- lapply(object, GetMeshMajor)     
+    Mesh <- lapply(object, GetMeshMajor)     
 	Author <- lapply(object,GetAuthors)
 	
 	PMID <- as.character(PMID)
@@ -195,7 +201,7 @@ Medline <- function(object, query = character(0)){
 	AbstractText <- as.character(AbstractText)
 	Affiliation <- as.character(Affiliation)
 	Language <- as.character(Language)
-	PublicationType <- as.character(PublicationType)
+	PublicationType <- PublicationType
 	MedlineTA <- as.character(MedlineTA)
 	NlmUniqueID <- as.character(NlmUniqueID)
 	ISSNLinking <- as.character(ISSNLinking)
