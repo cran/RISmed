@@ -155,7 +155,7 @@ setClass("Medline",
             ArticleTitle= "character",
 			ELocationID= "character",
 			AbstractText= "character",
-			Affiliation= "character",
+			Affiliation= "list",
 			Language= "character",
 			PublicationType= "list",
 			MedlineTA= "character",
@@ -240,7 +240,7 @@ Medline <- function(object, query = character(0)){
 	Title <- sapply(object, function(x) x["Title"],USE.NAMES=FALSE)
 	ArticleTitle <- sapply(object, function(x) x["ArticleTitle"],USE.NAMES=FALSE)
 	ELocationID <- sapply(object, function(x) x["ELocationID"],USE.NAMES=FALSE)
-	Affiliation <- sapply(object, function(x) x["Affiliation"],USE.NAMES=FALSE)
+	Affiliation <- lapply(object, function(x) x[names(x) == "Affiliation"])
 	Language <- sapply(object, function(x) x["Language"],USE.NAMES=FALSE)
 	PublicationType <- lapply(object, function(x) x[names(x) == "PublicationType"])
 	MedlineTA <- sapply(object, function(x) x["MedlineTA"],USE.NAMES=FALSE)
@@ -262,7 +262,7 @@ Medline <- function(object, query = character(0)){
 	CollectiveName <- sapply(object, function(x) x["CollectiveName"],USE.NAMES=FALSE)
 
     Mesh <- lapply(object, GetMeshMajor)     
-	Author <- lapply(object,GetAuthors)
+	Author <- lapply(object, GetAuthors)
 	
 	PMID <- as.character(PMID)
 	YearAccepted <- as.numeric(YearAccepted)
@@ -305,7 +305,7 @@ Medline <- function(object, query = character(0)){
 	ArticleTitle <- as.character(ArticleTitle)
 	ELocationID <- as.character(ELocationID)
 	AbstractText <- as.character(AbstractText)
-	Affiliation <- as.character(Affiliation)
+	Affiliation <- Affiliation
 	Language <- as.character(Language)
 	PublicationType <- PublicationType
 	MedlineTA <- as.character(MedlineTA)
