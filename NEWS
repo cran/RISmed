@@ -66,3 +66,33 @@ Added concatenate method for Medline class.
 Version 2.1.7
 
 Added additional Affiliations to Affiliation method, now returns a list of all affiliations in the same order as the authors.
+
+-------------------------------------------------------------------------------
+
+Version 2.1.8
+
+Added COIStatement to Medline methods.
+
+--------------------------------------------------------------------------------
+
+Version 2.1.9
+
+Added names to Affiliations to link to authors
+
+--------------------------------------------------------------------------------
+
+Version 2.1.10
+
+Changes value identification to take anything between <> in the event special characters are present.
+
+--------------------------------------------------------------------------------
+
+Version 2.1.11
+
+Fixed doi vs pii, added additional date variables, and fixed bug with structured abstracts.
+
+-------------------------------------------------------------------------------
+
+Version 2.2
+
+Rebuild for R version 3.6.2 and put dependency on R >= 3.6.0.

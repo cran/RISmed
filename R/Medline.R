@@ -112,6 +112,32 @@ setClass("Medline",
 	representation(
 			Query = "character",
 			PMID = "character",
+
+			YearRevised = "numeric",
+            MonthRevised = "numeric",
+            DayRevised= "numeric",
+	
+			YearPubDate = "numeric",
+            MonthPubDate = "character",
+            DayPubDate= "numeric",
+	
+			YearArticleDate = "numeric",
+            MonthArticleDate = "numeric",
+            DayArticleDate= "numeric",
+
+	
+			YearEntrez = "numeric",
+            MonthEntrez = "numeric",
+            DayEntrez= "numeric",
+			HourEntrez= "numeric",
+			MinuteEntrez= "numeric",           
+
+	
+			YearMedline = "numeric",
+            MonthMedline = "numeric",
+            DayMedline= "numeric",
+			HourMedline= "numeric",
+			MinuteMedline= "numeric",           
 	
 			YearReceived = "numeric",
             MonthReceived = "numeric",
@@ -163,6 +189,7 @@ setClass("Medline",
 			ISSNLinking= "character",
 			PublicationStatus= "character",
 			ArticleId= "character",
+			DOI = "character",
 			Volume= "character",
 			Issue= "character",
 			ISOAbbreviation= "character",
@@ -175,6 +202,7 @@ setClass("Medline",
 			RegistryNumber= "character",
 			RefSource= "character",
 			CollectiveName="character",
+			COIStatement = "character",
                        	Mesh="list")
 )
 
@@ -191,6 +219,49 @@ Medline <- function(object, query = character(0)){
 		else
 			NA
 		}
+
+	
+	YearRevised <- sapply(object, function(x) x["YearRevised"],USE.NAMES=FALSE)
+
+	MonthRevised <- sapply(object, function(x) x["MonthRevised"],USE.NAMES=FALSE)
+	
+	DayRevised <- sapply(object, function(x) x["DayRevised"],USE.NAMES=FALSE)
+
+	YearArticleDate <- sapply(object, function(x) x["YearArticleDate"],USE.NAMES=FALSE)
+	
+	MonthArticleDate <- sapply(object, function(x) x["MonthArticleDate"],USE.NAMES=FALSE)
+	
+	
+	DayArticleDate <- sapply(object, function(x) x["DayArticleDate"],USE.NAMES=FALSE)
+	
+
+	YearPubDate <-sapply(object, function(x) x["YearPubDate"],USE.NAMES=FALSE)
+	
+	MonthPubDate <- sapply(object, function(x) x["MonthPubDate"],USE.NAMES=FALSE)
+	
+	DayPubDate <- sapply(object, function(x) x["DayPubDate"],USE.NAMES=FALSE)
+
+
+	YearEntrez <- sapply(object, function(x) x["YearEntrez"],USE.NAMES=FALSE)
+
+	MonthEntrez <- sapply(object, function(x) x["MonthEntrez"],USE.NAMES=FALSE)
+
+	DayEntrez <- sapply(object, function(x) x["DayEntrez"],USE.NAMES=FALSE)
+
+	MinuteEntrez <- sapply(object, function(x) x["MinuteEnrez"],USE.NAMES=FALSE)
+
+	HourEntrez <- sapply(object, function(x) x["HourEntrez"],USE.NAMES=FALSE)
+
+
+	YearMedline <- sapply(object, function(x) x["YearMedline"],USE.NAMES=FALSE)
+
+	MonthMedline <- sapply(object, function(x) x["MonthMedline"],USE.NAMES=FALSE)
+
+	DayMedline <- sapply(object, function(x) x["DayMedline"],USE.NAMES=FALSE)
+
+	MinuteMedline <- sapply(object, function(x) x["MinuteMedline"],USE.NAMES=FALSE)
+
+	HourMedline <- sapply(object, function(x) x["HourMedline"],USE.NAMES=FALSE)
 
 	YearReceived <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "YearReceived"))
 	MonthReceived <- mapply(FUN, index = TagIndex, obj = object, MoreArgs = list(field = "MonthReceived"))
@@ -240,7 +311,15 @@ Medline <- function(object, query = character(0)){
 	Title <- sapply(object, function(x) x["Title"],USE.NAMES=FALSE)
 	ArticleTitle <- sapply(object, function(x) x["ArticleTitle"],USE.NAMES=FALSE)
 	ELocationID <- sapply(object, function(x) x["ELocationID"],USE.NAMES=FALSE)
-	Affiliation <- lapply(object, function(x) x[names(x) == "Affiliation"])
+	Affiliation <- lapply(object, function(x) {
+		index <- which(names(x) == "Affiliation")
+		values <- x[names(x) == "Affiliation"]
+		if(length(index) > 1){
+			order <- cumsum(c(1, as.numeric(diff(index) > 1)))
+			names(values) <- order
+			}
+		values
+		})
 	Language <- sapply(object, function(x) x["Language"],USE.NAMES=FALSE)
 	PublicationType <- lapply(object, function(x) x[names(x) == "PublicationType"])
 	MedlineTA <- sapply(object, function(x) x["MedlineTA"],USE.NAMES=FALSE)
@@ -248,6 +327,7 @@ Medline <- function(object, query = character(0)){
 	ISSNLinking <- sapply(object, function(x) x["ISSNLinking"],USE.NAMES=FALSE)
 	PublicationStatus <- sapply(object, function(x) x["PublicationStatus"],USE.NAMES=FALSE)
 	ArticleId <- sapply(object, function(x) x["ArticleId"],USE.NAMES=FALSE)
+	DOI <- sapply(object, function(x) x["DOI"],USE.NAMES=FALSE)
 	Volume <- sapply(object, function(x) x["Volume"],USE.NAMES=FALSE)
 	Issue <- sapply(object, function(x) x["Issue"],USE.NAMES=FALSE)
 	ISOAbbreviation <- sapply(object, function(x) x["ISOAbbreviation"],USE.NAMES=FALSE)
@@ -260,11 +340,34 @@ Medline <- function(object, query = character(0)){
 	RegistryNumber <- sapply(object, function(x) x["RegistryNumber"],USE.NAMES=FALSE)
 	RefSource <- sapply(object, function(x) x["RefSource"],USE.NAMES=FALSE)
 	CollectiveName <- sapply(object, function(x) x["CollectiveName"],USE.NAMES=FALSE)
+	COIStatement <- sapply(object, function(x) x["CoiStatement"],USE.NAMES=FALSE)
 
     Mesh <- lapply(object, GetMeshMajor)     
 	Author <- lapply(object, GetAuthors)
 	
 	PMID <- as.character(PMID)
+	
+	YearRevised <- as.numeric(YearRevised)
+	MonthRevised <- as.numeric(MonthRevised)
+	DayRevised <- as.numeric(DayRevised)
+	YearPubDate <- as.numeric(YearPubDate)
+	MonthPubDate <- as.character(MonthPubDate)
+	DayPubDate <- as.numeric(DayPubDate)
+	YearArticleDate <- as.numeric(YearArticleDate)
+	MonthArticleDate <- as.numeric(MonthArticleDate)
+	DayArticleDate <- as.numeric(DayArticleDate)
+
+	YearEntrez <- as.numeric(YearEntrez)
+	MonthEntrez <- as.numeric(MonthEntrez)
+	DayEntrez <- as.numeric(DayEntrez)
+	HourEntrez <- as.numeric(HourEntrez)
+	MinuteEntrez <- as.numeric(MinuteEntrez)
+	YearMedline <- as.numeric(YearMedline)
+	MonthMedline <- as.numeric(MonthMedline)
+	DayMedline <- as.numeric(DayMedline)
+	HourMedline <- as.numeric(HourMedline)
+	MinuteMedline <- as.numeric(MinuteMedline)
+	
 	YearAccepted <- as.numeric(YearAccepted)
 	YearReceived <- as.numeric(YearReceived)
 	YearEpublish <- as.numeric(YearEpublish)
@@ -313,6 +416,7 @@ Medline <- function(object, query = character(0)){
 	ISSNLinking <- as.character(ISSNLinking)
 	PublicationStatus <- as.character(PublicationStatus)
 	ArticleId <- as.character(ArticleId)
+	DOI <- as.character(DOI)
 	Volume <- as.character(Volume)
 	Issue <- as.character(Issue)
 	ISOAbbreviation <- as.character(ISOAbbreviation)
@@ -325,17 +429,37 @@ Medline <- function(object, query = character(0)){
 	RegistryNumber <- as.character(RegistryNumber)
 	RefSource <- as.character(RefSource)
 	CollectiveName <- as.character(CollectiveName)
+	COIStatement <- as.character(COIStatement)
   	
 	new("Medline",
 			Query = query,
 			PMID = PMID,
+			YearRevised = YearRevised, 
+		    MonthRevised = MonthRevised , 
+		    DayRevised  = DayRevised, 
+			YearPubDate = YearPubDate, 
+		    MonthPubDate = MonthPubDate , 
+		    DayPubDate  = DayPubDate, 
+			YearArticleDate = YearArticleDate, 
+		    MonthArticleDate = MonthArticleDate , 
+		    DayArticleDate  = DayArticleDate, 
+			YearEntrez = YearEntrez, 
+		    MonthEntrez = MonthEntrez , 
+		    DayEntrez  = DayEntrez, 
+			HourEntrez = HourEntrez, 
+			MinuteEntrez = MinuteEntrez, 	
+			YearMedline = YearMedline, 
+		    MonthMedline = MonthMedline , 
+		    DayMedline  = DayMedline, 
+			HourMedline = HourMedline, 
+			MinuteMedline = MinuteMedline, 				
 			YearAccepted = YearAccepted, 
 		    MonthAccepted = MonthAccepted , 
 		    DayAccepted  = DayAccepted, 
 			HourAccepted = HourAccepted, 
 			MinuteAccepted = MinuteAccepted, 	
 			YearReceived = YearReceived, 
-		    MonthReceived = MonthReceived , 
+		    MonthReceived = MonthReceived, 
 		    DayReceived  = DayReceived, 
 			HourReceived = HourReceived, 
 			MinuteReceived = MinuteReceived, 
@@ -358,7 +482,7 @@ Medline <- function(object, query = character(0)){
 		    MonthPubmed = MonthPubmed , 
 		    DayPubmed  = DayPubmed, 
 			HourPubmed = HourPubmed, 
-			MinutePubmed = MinutePubmed, 													    
+			MinutePubmed = MinutePubmed, 											
 		    ISSN  = ISSN, 
 		    Title  = Title, 
 		    Author = Author,
@@ -373,6 +497,7 @@ Medline <- function(object, query = character(0)){
 			ISSNLinking = ISSNLinking, 
 			PublicationStatus = PublicationStatus, 
 			ArticleId = ArticleId, 
+			DOI = DOI, 
 			Volume = Volume, 
 			Issue = Issue, 
 			ISOAbbreviation = ISOAbbreviation, 
@@ -385,6 +510,7 @@ Medline <- function(object, query = character(0)){
 			RegistryNumber = RegistryNumber, 
 			RefSource = RefSource, 
 			CollectiveName = CollectiveName,
+			COIStatement = COIStatement,
                         Mesh = Mesh
 	)
 }
@@ -402,6 +528,25 @@ setMethod("show","Medline",function(object){
 
 setMethod("Query","Medline",function(object) object@Query)                                
 setMethod("PMID","Medline",function(object) object@PMID)                                
+setMethod("YearRevised","Medline",function(object) object@YearRevised)                                
+setMethod("MonthRevised","Medline",function(object) object@MonthRevised)                              
+setMethod("DayRevised","Medline",function(object) object@DayRevised)                                  
+setMethod("YearPubDate","Medline",function(object) object@YearPubDate)                                
+setMethod("MonthPubDate","Medline",function(object) object@MonthPubDate)                              
+setMethod("DayPubDate","Medline",function(object) object@DayPubDate)                                  
+setMethod("YearArticleDate","Medline",function(object) object@YearArticleDate)                                
+setMethod("MonthArticleDate","Medline",function(object) object@MonthArticleDate)                              
+setMethod("DayArticleDate","Medline",function(object) object@DayArticleDate)                                  
+setMethod("YearEntrez","Medline",function(object) object@YearEntrez)                                
+setMethod("MonthEntrez","Medline",function(object) object@MonthEntrez)                              
+setMethod("DayEntrez","Medline",function(object) object@DayEntrez)                                  
+setMethod("HourEntrez","Medline",function(object) object@HourEntrez)                                
+setMethod("MinuteEntrez","Medline",function(object) object@MinuteEntrez)                            
+setMethod("YearMedline","Medline",function(object) object@YearMedline)                                
+setMethod("MonthMedline","Medline",function(object) object@MonthMedline)                              
+setMethod("DayMedline","Medline",function(object) object@DayMedline)                                  
+setMethod("HourMedline","Medline",function(object) object@HourMedline)                                
+setMethod("MinuteMedline","Medline",function(object) object@MinuteMedline)                            
 setMethod("YearAccepted","Medline",function(object) object@YearAccepted)                                
 setMethod("MonthAccepted","Medline",function(object) object@MonthAccepted)                              
 setMethod("DayAccepted","Medline",function(object) object@DayAccepted)                                  
@@ -445,7 +590,8 @@ setMethod("MedlineTA","Medline",function(object) object@MedlineTA)
 setMethod("NlmUniqueID","Medline",function(object) object@NlmUniqueID)                  
 setMethod("ISSNLinking","Medline",function(object) object@ISSNLinking)                  
 setMethod("PublicationStatus","Medline",function(object) object@PublicationStatus)      
-setMethod("ArticleId","Medline",function(object) object@ArticleId)                      
+setMethod("ArticleId","Medline",function(object) object@ArticleId)       
+setMethod("DOI","Medline",function(object) object@DOI)                
 setMethod("Volume","Medline",function(object) object@Volume)                            
 setMethod("Issue","Medline",function(object) object@Issue)                              
 setMethod("ISOAbbreviation","Medline",function(object) object@ISOAbbreviation)          
@@ -458,6 +604,7 @@ setMethod("Agency","Medline",function(object) object@Agency)
 setMethod("RegistryNumber","Medline",function(object) object@RegistryNumber)            
 setMethod("RefSource","Medline",function(object) object@RefSource)                      
 setMethod("CollectiveName","Medline",function(object) object@CollectiveName)            
+setMethod("COIStatement","Medline",function(object) object@COIStatement) 
 setMethod("Mesh","Medline",function(object) object@Mesh)
 setMethod("Cited", "Medline", cited_function)
 
